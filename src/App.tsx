@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { PubSub } from './PubSub';
 
-function App() {
+function App () {
+  const [ value, setValue ] = React.useState('');
+  React.useEffect(() => {
+    const callback = (x: any): void => { setValue(x) };
+
+    PubSub.subscribe('one', callback);
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Pub Sub Proof Of Concept</h1>
+      <p>{ value }</p>
     </div>
   );
 }
